@@ -2,7 +2,7 @@
 
 export const state = {
     score: 1000,
-    holeSize: 50,
+    holeSize: 30,
 
     // balls physics
     gravity: 0.5,

@@ -1,9 +1,14 @@
 import { engine, World } from "./engine.js";
 import { hole } from "./world.js";
 import { state } from "./gameState.js";
+import { updateSlotUI } from "./ui.js";
+import { Cannon } from "./cannon.js";
+
+const cannons = [];
 
 export function updateScore() {
     document.getElementById("score").innerText = `🎱 ${state.score}`;
+    updateSlotUI();
 }
 
 Matter.Events.on(engine, "collisionStart", e => {
@@ -18,3 +23,20 @@ Matter.Events.on(engine, "collisionStart", e => {
 });
 
 updateScore();
+
+export function createCannon(x, y, side = "left") {
+    const cannonSide = side === "right" ? 1 : -1;
+    const c = new Cannon(x, y, cannonSide);
+    cannons.push(c);
+    return c;
+}
+
+// UPDATE LOOP
+Matter.Events.on(engine, "beforeUpdate", () => {
+    cannons.forEach(c => c.update());
+});
+
+// SHOOT ALL
+document.addEventListener("click", () => {
+    cannons.forEach(c => c.shoot());
+});

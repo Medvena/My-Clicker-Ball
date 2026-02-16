@@ -12,11 +12,18 @@ body {
     height: 50px;
     background: #222;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 0 20px;
     box-sizing: border-box;
+    font-size: 30px;
 }
+
+#info-panel, #score, #buffs {
+    flex: 1;
+}
+#info-panel { text-align: left; }
+#score      { text-align: center; }
+#buffs      { text-align: right; }
 
 #game-container {
     display: flex;
