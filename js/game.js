@@ -24,9 +24,8 @@ Matter.Events.on(engine, "collisionStart", e => {
 
 updateScore();
 
-export function createCannon(x, y, side = "left") {
-    const cannonSide = side === "right" ? 1 : -1;
-    const c = new Cannon(x, y, cannonSide);
+export function createCannon(x, y, side) {
+    const c = new Cannon(x, y, side);
     cannons.push(c);
     return c;
 }

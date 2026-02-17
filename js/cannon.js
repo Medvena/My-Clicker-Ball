@@ -2,10 +2,10 @@ import { engine, World, Bodies } from "./engine.js";
 import { state } from "./gameState.js";
 
 export class Cannon {
-    constructor(x, y, side = 1) {
+    constructor(x, y, side) {
         this.pos = { x, y };
-        this.angle = side === 1 ? Math.PI/4 : -Math.PI/4;
-        this.side = side; // 1 = right, -1 = left
+        this.side = side === 'left' ? -1 : 1;
+        this.angle = this.side * Math.PI/4;
         this.t = Math.random() * 10;
         this.recoil = 0;
 
@@ -47,8 +47,8 @@ export class Cannon {
         });
 
         Matter.Body.setVelocity(ball, {
-            x: Math.cos(this.angle) * state.speed,
-            y: Math.sin(this.angle) * state.speed
+            x: Math.cos(this.angle) * state.speed*this.side,
+            y: Math.sin(this.angle) * state.speed*this.side
         });
 
         World.add(engine.world, ball);
