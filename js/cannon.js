@@ -35,8 +35,8 @@ export class Cannon {
         const length = 80;
         const offset = length / 2 + 15;
 
-        const x = this.body.position.x - Math.cos(this.angle) * offset;
-        const y = this.body.position.y - Math.sin(this.angle) * offset;
+        const x = this.body.position.x - Math.cos(this.angle) * offset * this.angle;
+        const y = this.body.position.y - Math.sin(this.angle) * offset * this.angle;
 
         const ball = Bodies.circle(x, y, state.ballRadius, {
             restitution: 0.9,

@@ -1,7 +1,7 @@
 // GAME STATS
 
 export const state = {
-    score: 1000,
+    score: 99999999,
     holeSize: 30,
 
     // balls physics

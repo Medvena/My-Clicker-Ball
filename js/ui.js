@@ -34,7 +34,7 @@ Slots.forEach((slot, i) => {
 export function updateSlotUI() {
     Slots.forEach((slot, i) => {
         const btn = document.getElementById("bp_buy"+i);
-        if (state.score >= slot.price) {
+        if (state.score >= slot.price && slot.canon == null) {
             btn.disabled = false;
             btn.style.opacity = '1';
         }
