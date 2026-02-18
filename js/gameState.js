@@ -7,5 +7,5 @@ export const state = {
     // balls physics
     gravity: 0.5,
     ballRadius: 10,
-    speed: 8,
+    speed: 6,
 };

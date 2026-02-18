@@ -4,8 +4,11 @@ import { state } from "./gameState.js";
 export class Cannon {
     constructor(x, y, side) {
         this.pos = { x, y };
-        this.side = side === 'left' ? -1 : 1;
-        this.angle = this.side * Math.PI/4;
+        this.side = side; // left or right
+        // -45 degrees for left, -135 degrees for right
+        this.baseAngle = side === 'left' ? -Math.PI / 4 : -3 * Math.PI / 4;
+        this.angle = this.baseAngle;
+
         this.t = Math.random() * 10;
         this.recoil = 0;
 
@@ -20,23 +23,24 @@ export class Cannon {
 
     update() {
         // idle animation
-        this.t += 0.02;
-        this.angle = Math.PI/4 * this.side + Math.sin(this.t) * 0.2;
+        this.t += 0.05; // animation speed
+        const offset = Math.sin(this.t) * 0.2;
+        this.angle = this.baseAngle + offset;
         Matter.Body.setAngle(this.body, this.angle);
 
         // recoil damping
-        this.recoil *= 0.85;
-        const x = this.pos.x + Math.cos(this.angle) * this.recoil;
-        const y = this.pos.y + Math.sin(this.angle) * this.recoil;
+        this.recoil *= 0.85; // damping factor
+        const x = this.pos.x - Math.cos(this.angle) * this.recoil;
+        const y = this.pos.y - Math.sin(this.angle) * this.recoil;
         Matter.Body.setPosition(this.body, { x, y });
     }
 
     shoot() {
         const length = 80;
-        const offset = length / 2 + 15;
+        const distFromCenter = length / 2 + state.ballRadius + 5;
 
-        const x = this.body.position.x - Math.cos(this.angle) * offset * this.angle;
-        const y = this.body.position.y - Math.sin(this.angle) * offset * this.angle;
+        const x = this.body.position.x + Math.cos(this.angle) * distFromCenter;
+        const y = this.body.position.y + Math.sin(this.angle) * distFromCenter;
 
         const ball = Bodies.circle(x, y, state.ballRadius, {
             restitution: 0.9,
@@ -47,11 +51,11 @@ export class Cannon {
         });
 
         Matter.Body.setVelocity(ball, {
-            x: Math.cos(this.angle) * state.speed*this.side,
-            y: Math.sin(this.angle) * state.speed*this.side
+            x: Math.cos(this.angle) * state.speed,
+            y: Math.sin(this.angle) * state.speed
         });
 
         World.add(engine.world, ball);
-        this.recoil = 10;
+        this.recoil = 15; // damping value
     }
 }
