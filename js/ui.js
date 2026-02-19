@@ -1,6 +1,6 @@
 import { engine} from "./engine.js";
 import { Slots } from "./slots.js";
-import { updateScore } from "./game.js";
+import {increaseHoleSize, updateScore} from "./game.js";
 import { state } from "./gameState.js";
 import { createCannon } from "./game.js";
 
@@ -55,3 +55,19 @@ function buyCanon(slot, btn) {
     btn.disabled = true;
     btn.style.opacity = 0.3;
 }
+
+const btn2 = document.createElement("button");
+btn2.className = "slotBtn";
+btn2.innerText = `Increase : 100 🎱`;
+btn2.id = "Increase_Hole";
+
+btn2.style.left = 300 + "px";
+btn2.onmouseenter = () => btn2.style.backgroundColor = colorButtonMoused ;
+btn2.onmouseleave = () => btn2.style.backgroundColor = "#333";
+btn2.style.top  = 610 + "px";
+
+btn2.style.opacity = '1';
+
+overlay.appendChild(btn2);
+
+btn2.onclick = () => increaseHoleSize();

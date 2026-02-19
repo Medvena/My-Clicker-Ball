@@ -1,5 +1,5 @@
 import { engine, World } from "./engine.js";
-import { hole } from "./world.js";
+import { hole, updateHole } from "./world.js";
 import { state } from "./gameState.js";
 import { updateSlotUI } from "./ui.js";
 import { Cannon } from "./cannon.js";
@@ -39,3 +39,10 @@ Matter.Events.on(engine, "beforeUpdate", () => {
 document.addEventListener("click", () => {
     cannons.forEach(c => c.shoot());
 });
+
+export function increaseHoleSize(){
+    state.holeSize += 10 ;
+    console.log(state.holeSize);
+    updateHole();
+
+}
