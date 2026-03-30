@@ -47,5 +47,5 @@ World.add(engine.world, hole);
 export function updateHole() {
     Matter.Body.setPosition(groundLeft, { x: 100 - state.holeSize / 2, y: 580 });
     Matter.Body.setPosition(groundRight, { x: 650 + state.holeSize / 2, y: 580 });
-    Matter.Body.setPosition(hole, { x: 400, y: 590 , width: state.holeSize});
+    Matter.Body.setPosition(hole, { x, y , width: state.holeSize});
 }

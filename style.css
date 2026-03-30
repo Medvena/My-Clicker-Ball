@@ -27,11 +27,12 @@ body {
 
 #game-container {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     margin-top: 60px;
+    margin-left: 220px;
 }
 
-#leftPanel, #rightPanel {
+#rightPanel {
     display: flex;
     flex-direction: column;
     gap: 20px;
